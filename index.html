@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Farqaleet | Mobile Apps & Chrome Extensions Developer</title>
+  <meta name="description" content="Portfolio of Farqaleet - Android Apps and Chrome Extensions Developer. Explore live apps on Google Play Store and Chrome Web Store.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Noto+Nastaliq+Urdu:wght@400;700&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --bg-dark: #090d16;
+      --bg-card: rgba(18, 24, 38, 0.75);
+      --bg-card-hover: rgba(26, 35, 54, 0.9);
+      --border-color: rgba(255, 255, 255, 0.08);
+      --border-hover: rgba(99, 102, 241, 0.45);
+      --accent-primary: #6366f1;
+      --accent-secondary: #06b6d4;
+      --accent-emerald: #10b981;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --gradient-brand: linear-gradient(135deg, #6366f1 0%, #a855f7 50%, #ec4899 100%);
+      --gradient-card: linear-gradient(180deg, rgba(255, 255, 255, 0.03) 0%, rgba(255, 255, 255, 0) 100%);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      line-height: 1.6;
+      overflow-x: hidden;
+      min-height: 100vh;
+    }
+
+    /* Ambient Background Glow */
+    .ambient-glow-1 {
+      position: fixed;
+      top: -200px;
+      left: 10%;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(99, 102, 241, 0.18) 0%, rgba(99, 102, 241, 0) 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .ambient-glow-2 {
+      position: fixed;
+      bottom: -200px;
+      right: 10%;
+      width: 650px;
+      height: 650px;
+      background: radial-gradient(circle, rgba(6, 182, 212, 0.14) 0%, rgba(6, 182, 212, 0) 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Navigation */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 100;
+      background: rgba(9, 13, 22, 0.85);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border-color);
+      transition: all 0.3s ease;
+    }
+
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.1rem 2rem;
+    }
+
+    .logo {
+      font-size: 1.4rem;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      text-decoration: none;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .logo span {
+      background: var(--gradient-brand);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.95rem;
+      font-weight: 500;
+      transition: color 0.2s ease;
+    }
+
+    .nav-links a:hover {
+      color: var(--text-main);
+    }
+
+    .nav-btn {
+      padding: 0.55rem 1.35rem;
+      background: rgba(99, 102, 241, 0.15);
+      border: 1px solid rgba(99, 102, 241, 0.3);
+      color: #a5b4fc;
+      border-radius: 9999px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+
+    .nav-btn:hover {
+      background: var(--accent-primary);
+      color: #fff;
+      transform: translateY(-1px);
+    }
+
+    /* Main Container */
+    main {
+      position: relative;
+      z-index: 1;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 8rem 2rem 5rem;
+    }
+
+    /* Hero Section */
+    .hero {
+      text-align: center;
+      padding: 3rem 0 5rem;
+      max-width: 850px;
+      margin: 0 auto;
+    }
+
+    .badge-dev {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.45rem 1.1rem;
+      border-radius: 9999px;
+      background: rgba(99, 102, 241, 0.1);
+      border: 1px solid rgba(99, 102, 241, 0.25);
+      color: #a5b4fc;
+      font-size: 0.88rem;
+      font-weight: 600;
+      margin-bottom: 1.5rem;
+    }
+
+    .badge-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--accent-emerald);
+      box-shadow: 0 0 12px var(--accent-emerald);
+    }
+
+    .hero h1 {
+      font-size: 3.5rem;
+      font-weight: 800;
+      line-height: 1.15;
+      letter-spacing: -1.5px;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero h1 .highlight {
+      background: var(--gradient-brand);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      color: var(--text-muted);
+      line-height: 1.7;
+      margin-bottom: 2.5rem;
+    }
+
+    .hero-actions {
+      display: flex;
+      justify-content: center;
+      gap: 1.2rem;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.85rem 1.8rem;
+      border-radius: 12px;
+      background: var(--accent-primary);
+      color: #fff;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1rem;
+      box-shadow: 0 10px 25px -5px rgba(99, 102, 241, 0.4);
+      transition: all 0.25s ease;
+    }
+
+    .btn-primary:hover {
+      background: #4f46e5;
+      transform: translateY(-2px);
+      box-shadow: 0 15px 30px -5px rgba(99, 102, 241, 0.6);
+    }
+
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.85rem 1.8rem;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border-color);
+      color: var(--text-main);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1rem;
+      transition: all 0.25s ease;
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: rgba(255, 255, 255, 0.2);
+      transform: translateY(-2px);
+    }
+
+    /* Section Styles */
+    .section-header {
+      margin-bottom: 2.8rem;
+    }
+
+    .section-title {
+      font-size: 2.1rem;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+
+    .section-subtitle {
+      color: var(--text-muted);
+      font-size: 1.05rem;
+      margin-top: 0.5rem;
+    }
+
+    .grid-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+      gap: 2rem;
+      margin-bottom: 5.5rem;
+    }
+
+    /* App & Extension Card */
+    .project-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 20px;
+      padding: 1.85rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .project-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: var(--gradient-card);
+      pointer-events: none;
+    }
+
+    .project-card:hover {
+      transform: translateY(-6px);
+      border-color: var(--border-hover);
+      background: var(--bg-card-hover);
+      box-shadow: 0 20px 35px -10px rgba(0, 0, 0, 0.5);
+    }
+
+    .card-top {
+      display: flex;
+      align-items: flex-start;
+      gap: 1.25rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .app-icon {
+      width: 72px;
+      height: 72px;
+      border-radius: 16px;
+      object-fit: cover;
+      box-shadow: 0 8px 18px rgba(0, 0, 0, 0.35);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      flex-shrink: 0;
+      background: #1e293b;
+    }
+
+    .card-header-info {
+      flex: 1;
+    }
+
+    .badge-pill {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      padding: 0.25rem 0.65rem;
+      border-radius: 6px;
+      margin-bottom: 0.4rem;
+    }
+
+    .badge-play {
+      background: rgba(16, 185, 129, 0.15);
+      color: #34d399;
+      border: 1px solid rgba(16, 185, 129, 0.3);
+    }
+
+    .badge-chrome {
+      background: rgba(6, 182, 212, 0.15);
+      color: #38bdf8;
+      border: 1px solid rgba(6, 182, 212, 0.3);
+    }
+
+    .card-title {
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: var(--text-main);
+      line-height: 1.3;
+    }
+
+    .card-title.urdu-title {
+      font-family: 'Noto Nastaliq Urdu', 'Plus Jakarta Sans', serif;
+      line-height: 1.8;
+      font-size: 1.45rem;
+    }
+
+    .card-desc {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      line-height: 1.6;
+      margin-bottom: 1.8rem;
+    }
+
+    .card-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 1rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .store-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--text-main);
+      text-decoration: none;
+      padding: 0.75rem 1.4rem;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid var(--border-color);
+      transition: all 0.2s ease;
+      width: 100%;
+      justify-content: center;
+    }
+
+    .store-btn:hover {
+      background: rgba(255, 255, 255, 0.12);
+      border-color: rgba(255, 255, 255, 0.25);
+      color: #fff;
+    }
+
+    .store-btn svg {
+      width: 18px;
+      height: 18px;
+      fill: currentColor;
+    }
+
+    /* About Section */
+    .about-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 24px;
+      padding: 3rem;
+      margin-bottom: 5rem;
+      backdrop-filter: blur(12px);
+    }
+
+    .about-content {
+      max-width: 800px;
+    }
+
+    .about-content h2 {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+
+    .about-content p {
+      color: var(--text-muted);
+      font-size: 1.05rem;
+      line-height: 1.8;
+      margin-bottom: 1.5rem;
+    }
+
+    .skills-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-top: 1.5rem;
+    }
+
+    .skill-pill {
+      padding: 0.45rem 1rem;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--border-color);
+      color: var(--text-main);
+      font-size: 0.88rem;
+      font-weight: 500;
+    }
+
+    /* Contact Details inside About */
+    .contact-container {
+      margin-top: 2.5rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border-color);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border-color);
+      padding: 1rem 1.4rem;
+      border-radius: 14px;
+      text-decoration: none;
+      color: var(--text-main);
+      transition: all 0.25s ease;
+      flex: 1 1 280px;
+    }
+
+    .contact-item:hover {
+      background: rgba(99, 102, 241, 0.12);
+      border-color: rgba(99, 102, 241, 0.4);
+      transform: translateY(-2px);
+    }
+
+    .contact-icon-box {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      background: rgba(99, 102, 241, 0.15);
+      border: 1px solid rgba(99, 102, 241, 0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #a5b4fc;
+      flex-shrink: 0;
+    }
+
+    .contact-info {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .contact-label {
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+
+    .contact-value {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--text-main);
+    }
+
+    /* Footer */
+    footer {
+      border-top: 1px solid var(--border-color);
+      padding: 3rem 2rem;
+      text-align: center;
+      background: rgba(9, 13, 22, 0.95);
+    }
+
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 1.5rem;
+      list-style: none;
+    }
+
+    .footer-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.95rem;
+      transition: color 0.2s ease;
+    }
+
+    .footer-links a:hover {
+      color: var(--text-main);
+    }
+
+    .footer-text {
+      color: var(--text-muted);
+      font-size: 0.85rem;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .hero h1 {
+        font-size: 2.5rem;
+      }
+      .grid-cards {
+        grid-template-columns: 1fr;
+      }
+      .nav-links {
+        display: none;
+      }
+      .about-card {
+        padding: 2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Ambient Background Glows -->
+  <div class="ambient-glow-1"></div>
+  <div class="ambient-glow-2"></div>
+
+  <!-- Header Navigation -->
+  <header>
+    <div class="nav-container">
+      <a href="#" class="logo">
+        <span>Farqaleet</span> Apps
+      </a>
+      <ul class="nav-links">
+        <li><a href="#android-apps">Android Apps</a></li>
+        <li><a href="#chrome-extensions">Chrome Extensions</a></li>
+        <li><a href="#about">About</a></li>
+      </ul>
+      <a href="#about" class="nav-btn">Contact</a>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main>
+
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="badge-dev">
+        <span class="badge-dot"></span> Verified Developer • Google Play & Chrome Store
+      </div>
+      <h1>Building Modern & Meaningful <span class="highlight">Apps & Extensions</span></h1>
+      <p>
+        Hi, I'm <strong>Farqaleet</strong>. I design and engineer reliable Android applications and intelligent browser extensions crafted to enrich user experiences and boost everyday productivity.
+      </p>
+      <div class="hero-actions">
+        <a href="#android-apps" class="btn-primary">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.523 15.3414c-.5511 0-.9993-.4486-.9993-.9997s.4482-.9993.9993-.9993c.551 0 .9993.4482.9993.9993s-.4483.9997-.9993.9997m-11.046 0c-.5511 0-.9993-.4486-.9993-.9997s.4482-.9993.9993-.9993c.5511 0 .9993.4482.9993.9993s-.4482.9997-.9993.9997m11.4045-6.02l1.9973-3.4592a.416.416 0 00-.1521-.5676.416.416 0 00-.5676.1521l-2.0223 3.503C15.5902 8.4116 13.854 8 12 8s-3.5902.4116-5.1368 1.0507L4.8409 5.5477a.416.416 0 00-.5676-.1521.416.416 0 00-.1521.5676l1.9973 3.4592C2.6889 11.1867 0 14.8087 0 19h24c0-4.1913-2.6889-7.8133-6.1185-9.6786"/></svg>
+          Explore Android Apps
+        </a>
+        <a href="#chrome-extensions" class="btn-secondary">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.372 0 0 5.373 0 12s5.372 12 12 12 12-5.373 12-12c0-6.627-5.373-12-12-12zm-1.091 4.364h2.182v4.363h-2.182V4.364zm0 6.545h2.182v8.727h-2.182v-8.727z"/></svg>
+          Chrome Extensions
+        </a>
+      </div>
+    </section>
+
+    <!-- SECTION: ANDROID APPS -->
+    <section id="android-apps">
+      <div class="section-header">
+        <h2 class="section-title">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="#10b981"><path d="M17.523 15.3414c-.5511 0-.9993-.4486-.9993-.9997s.4482-.9993.9993-.9993c.551 0 .9993.4482.9993.9993s-.4483.9997-.9993.9997m-11.046 0c-.5511 0-.9993-.4486-.9993-.9997s.4482-.9993.9993-.9993c.5511 0 .9993.4482.9993.9993s-.4482.9997-.9993.9997m11.4045-6.02l1.9973-3.4592a.416.416 0 00-.1521-.5676.416.416 0 00-.5676.1521l-2.0223 3.503C15.5902 8.4116 13.854 8 12 8s-3.5902.4116-5.1368 1.0507L4.8409 5.5477a.416.416 0 00-.5676-.1521.416.416 0 00-.1521.5676l1.9973 3.4592C2.6889 11.1867 0 14.8087 0 19h24c0-4.1913-2.6889-7.8133-6.1185-9.6786"/></svg>
+          Android Applications
+        </h2>
+        <p class="section-subtitle">Live on Google Play Store with thousands of satisfied users.</p>
+      </div>
+
+      <div class="grid-cards">
+        
+        <!-- CARD 1: ISLAM ONE -->
+        <div class="project-card">
+          <div>
+            <div class="card-top">
+              <img src="assets/islam_one.png" alt="Islam One Icon" class="app-icon">
+              <div class="card-header-info">
+                <span class="badge-pill badge-play">Google Play Store</span>
+                <h3 class="card-title">Islam One</h3>
+              </div>
+            </div>
+            <p class="card-desc">
+              Complete Islamic lifestyle companion featuring Quran recitations (Surah Rahman & more), interactive Noorani Qaida, accurate Namaz prayer timings for all countries, and daily supplications.
+            </p>
+          </div>
+          <div class="card-footer">
+            <a href="https://play.google.com/store/apps/details?id=com.farqaleet.islam_plus" target="_blank" rel="noopener" class="store-btn">
+              <svg viewBox="0 0 24 24"><path d="M3 20.5v-17c0-.83.67-1.5 1.5-1.5.31 0 .6.1.84.27l14.28 8.5c.56.33.88.93.88 1.58s-.32 1.25-.88 1.58l-14.28 8.5c-.24.17-.53.27-.84.27-.83 0-1.5-.67-1.5-1.5z"/></svg>
+              Get on Google Play
+            </a>
+          </div>
+        </div>
+
+        <!-- CARD 2: STEP MASTER PRO -->
+        <div class="project-card">
+          <div>
+            <div class="card-top">
+              <img src="assets/step_master.png" alt="Step Master Pro Icon" class="app-icon">
+              <div class="card-header-info">
+                <span class="badge-pill badge-play">Google Play Store</span>
+                <h3 class="card-title">Step Master Pro</h3>
+              </div>
+            </div>
+            <p class="card-desc">
+              Accurately track your daily steps, walking distance, active workout time, and calories burned with battery-optimized background pedometer sensor technology.
+            </p>
+          </div>
+          <div class="card-footer">
+            <a href="https://play.google.com/store/apps/details?id=com.farqaleet.step_master" target="_blank" rel="noopener" class="store-btn">
+              <svg viewBox="0 0 24 24"><path d="M3 20.5v-17c0-.83.67-1.5 1.5-1.5.31 0 .6.1.84.27l14.28 8.5c.56.33.88.93.88 1.58s-.32 1.25-.88 1.58l-14.28 8.5c-.24.17-.53.27-.84.27-.83 0-1.5-.67-1.5-1.5z"/></svg>
+              Get on Google Play
+            </a>
+          </div>
+        </div>
+
+        <!-- 
+        ===========================================================
+        نئی اینڈرائیڈ ایپ شامل کرنے کا طریقہ:
+        نیچے دیے گئے بلاک کو ان-کمنٹ (Uncomment) کر کے اپنی نئی ایپ لکھیں
+        ===========================================================
+        -->
+        <!--
+        <div class="project-card">
+          <div>
+            <div class="card-top">
+              <img src="assets/stopwatch_xtreme.png" alt="Stopwatch Xtreme Icon" class="app-icon">
+              <div class="card-header-info">
+                <span class="badge-pill badge-play">Coming Soon</span>
+                <h3 class="card-title">Stopwatch Xtreme</h3>
+              </div>
+            </div>
+            <p class="card-desc">
+              Advanced precision digital stopwatch with lap analysis, multi-lane timers, TTS voice announcements, and export features.
+            </p>
+          </div>
+          <div class="card-footer">
+            <a href="#" class="store-btn">Coming Soon</a>
+          </div>
+        </div>
+        -->
+
+      </div>
+    </section>
+
+    <!-- SECTION: CHROME EXTENSIONS -->
+    <section id="chrome-extensions">
+      <div class="section-header">
+        <h2 class="section-title">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="#06b6d4"><path d="M12 0C5.372 0 0 5.373 0 12s5.372 12 12 12 12-5.373 12-12c0-6.627-5.373-12-12-12zm-1.091 4.364h2.182v4.363h-2.182V4.364zm0 6.545h2.182v8.727h-2.182v-8.727z"/></svg>
+          Chrome Extensions
+        </h2>
+        <p class="section-subtitle">Empowering Urdu readers and researchers directly inside Google Chrome.</p>
+      </div>
+
+      <div class="grid-cards">
+        
+        <!-- EXTENSION 1: URDU DAAN -->
+        <div class="project-card">
+          <div>
+            <div class="card-top">
+              <img src="assets/urdu_daan.png" alt="Urdu Daan Icon" class="app-icon">
+              <div class="card-header-info">
+                <span class="badge-pill badge-chrome">Chrome Web Store</span>
+                <h3 class="card-title urdu-title">اردو دان: ادبی معاون</h3>
+              </div>
+            </div>
+            <p class="card-desc">
+              An intelligent literary research assistant for Urdu literature lovers, scholars, and researchers. Features instant word meanings, dictionary lookup, text converters, citation generators, and reading aids.
+            </p>
+          </div>
+          <div class="card-footer">
+            <a href="https://chromewebstore.google.com/detail/%D8%A7%D8%B1%D8%AF%D9%88-%D8%AF%D8%A7%D9%86-%D8%A7%D8%AF%D8%A8%DB%8C-%D9%85%D8%B9%D8%A7%D9%88%D9%86/fckcceclgfjbhlnbchmggljndpmicbkj" target="_blank" rel="noopener" class="store-btn">
+              <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+              Add to Chrome
+            </a>
+          </div>
+        </div>
+
+        <!-- EXTENSION 2: URDU NASTALEEQ SUBTITLES -->
+        <div class="project-card">
+          <div>
+            <div class="card-top">
+              <img src="assets/urdu_subtitles.png" alt="Urdu Subtitles Icon" class="app-icon">
+              <div class="card-header-info">
+                <span class="badge-pill badge-chrome">Chrome Web Store</span>
+                <h3 class="card-title">Universal Urdu Nastaleeq Subtitles</h3>
+              </div>
+            </div>
+            <p class="card-desc">
+              Transforms standard and auto-generated video subtitles across YouTube and web video players into authentic, beautiful Urdu Nastaleeq typography with zero latency.
+            </p>
+          </div>
+          <div class="card-footer">
+            <a href="https://chromewebstore.google.com/detail/universal-urdu-nastaleeq-s/bkbogbceehdhdjllipdhkdcpahbceafj" target="_blank" rel="noopener" class="store-btn">
+              <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+              Add to Chrome
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SECTION: ABOUT & SKILLS -->
+    <section id="about" class="about-card">
+      <div class="about-content">
+        <h2>About Farqaleet</h2>
+        <p>
+          I am an independent developer dedicated to building reliable, high-performance solutions. My work spans native Android development with modern toolchains as well as web extensions that enhance digital literacy and research workflows.
+        </p>
+        <p>
+          Every project is built with a focus on clean architecture, smooth performance, user privacy, and intuitive human-centered design.
+        </p>
+        <div class="skills-grid">
+          <span class="skill-pill">Android (Kotlin & Jetpack Compose)</span>
+          <span class="skill-pill">Chrome Extensions (Manifest V3)</span>
+          <span class="skill-pill">JavaScript & TypeScript</span>
+          <span class="skill-pill">Cordova & Mobile Web</span>
+          <span class="skill-pill">Material You Design</span>
+          <span class="skill-pill">Google Play Console</span>
+          <span class="skill-pill">Git & GitHub Pages</span>
+        </div>
+
+        <!-- Direct Contact Information -->
+        <div class="contact-container">
+          <a href="mailto:sadafadnanvt@gmail.com" class="contact-item">
+            <div class="contact-icon-box">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+              </svg>
+            </div>
+            <div class="contact-info">
+              <span class="contact-label">Email Address</span>
+              <span class="contact-value">sadafadnanvt@gmail.com</span>
+            </div>
+          </a>
+
+          <a href="tel:03390005630" class="contact-item">
+            <div class="contact-icon-box" style="background: rgba(16, 185, 129, 0.15); border-color: rgba(16, 185, 129, 0.3); color: #34d399;">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
+              </svg>
+            </div>
+            <div class="contact-info">
+              <span class="contact-label">Direct Contact / Phone</span>
+              <span class="contact-value">0339-0005630</span>
+            </div>
+          </a>
+
+          <a href="https://wa.me/923390005630" target="_blank" rel="noopener" class="contact-item">
+            <div class="contact-icon-box" style="background: rgba(37, 211, 102, 0.15); border-color: rgba(37, 211, 102, 0.3); color: #25d366;">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0012.04 2m.01 1.67c2.2 0 4.26.86 5.82 2.42a8.225 8.225 0 012.41 5.83c0 4.54-3.7 8.24-8.24 8.24-1.48 0-2.93-.4-4.2-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.196 8.196 0 01-1.26-4.38c0-4.54 3.7-8.24 8.24-8.24m4.52 11.66c-.19.53-.98 1.01-1.42 1.07-.4.06-.92.1-2.65-.62-2.21-.92-3.63-3.17-3.74-3.32-.11-.15-.9-1.2-.9-2.29 0-1.09.57-1.63.77-1.85.2-.22.44-.28.59-.28.15 0 .3 0 .43.01.14.01.33-.05.51.39.19.46.65 1.58.71 1.7.06.12.09.26.02.41-.08.15-.12.24-.23.37-.12.13-.25.29-.36.39-.12.11-.24.23-.1.47.14.24.62 1.02 1.33 1.65.91.81 1.68 1.06 1.92 1.18.24.12.38.1.52-.06.14-.16.6-.7.76-.94.16-.24.32-.2.54-.12.22.08 1.4.66 1.64.78.24.12.4.18.46.28.06.1.06.59-.13 1.12z"/>
+              </svg>
+            </div>
+            <div class="contact-info">
+              <span class="contact-label">WhatsApp</span>
+              <span class="contact-value">Chat on WhatsApp</span>
+            </div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-content">
+      <ul class="footer-links">
+        <li><a href="#android-apps">Android Apps</a></li>
+        <li><a href="#chrome-extensions">Chrome Extensions</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="mailto:sadafadnanvt@gmail.com">Email</a></li>
+        <li><a href="tel:03390005630">0339-0005630</a></li>
+      </ul>
+      <p class="footer-text">
+        &copy; 2026 Farqaleet. All rights reserved. Hosted free on GitHub Pages.
+      </p>
+    </div>
+  </footer>
+
+</body>
+</html>
